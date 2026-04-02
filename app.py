@@ -34,3 +34,4 @@ if __name__ == '__main__':
 @app.route("/rapport")
 def mongraphique():
     return render_template("graphique.html")
+    
