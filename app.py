@@ -18,3 +18,4 @@ def api_paris():
     ]
     
     return jsonify(result)
+    
