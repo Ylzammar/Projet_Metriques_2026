@@ -31,3 +31,6 @@ def api_paris():
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
 
+@app.route("/rapport")
+def mongraphique():
+    return render_template("graphique.html")
