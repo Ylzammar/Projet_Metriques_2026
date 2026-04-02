@@ -1,9 +1,48 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Graphique</title>
-  </head>
-  <body>
-    <h2>Mon Graphique</h2>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Graphique Météo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div style="width: 80%; margin: auto;">
+        <h2>Températures à Paris (7 prochains jours)</h2>
+        <canvas id="monGraphique"></canvas>
+    </div>
+
+    <script>
+        // 1. On va chercher les données sur ton API /paris
+        fetch('/paris')
+            .then(response => response.json())
+            .then(data => {
+                // 2. On prépare les étiquettes (dates) et les données (températures)
+                const labels = data.map(item => item.datetime.split('T')[1]); // On garde juste l'heure
+                const temperatures = data.map(item => item.temperature_c);
+
+                // 3. On crée le graphique
+                const ctx = document.getElementById('monGraphique').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line', // Un graphique en ligne
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Température (°C)',
+                            data: temperatures,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                            fill: true,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: false }
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
 </html>
