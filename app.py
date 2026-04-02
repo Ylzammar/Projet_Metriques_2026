@@ -1,3 +1,12 @@
+from flask import Flask, jsonify, render_template
+import requests
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return render_template('hello.html')
+
 @app.route("/contact")
 def MaPremiereAPI():
     return "<h2>Ma page de contact</h2>"
@@ -18,4 +27,6 @@ def api_paris():
     ]
     
     return jsonify(result)
-    
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
